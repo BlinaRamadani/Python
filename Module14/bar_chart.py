@@ -1,0 +1,38 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from kaggle_data.kaggl4e_dataset import filtered_data
+
+df = pd.read_csv('avgIQpercountry.csv')
+
+filtered_df = df[df['Average IQ'] >= 100]
+filtered_df = filtered_df.sort_values(by = 'Average IQ', ascending=False)
+
+print(filtered_df)
+
+#Create a figure for the bar chart with a specified size
+
+plt.figure(figsize=(14,8))
+
+bars = plt.bar(filtered_df["Country"], filtered_df["Average IQ"], color="skyblue")
+
+plt.title("Average IQ by country (IQ >= 100)", fontsize= 16)
+#Add labels to the x-axis and y-axsi
+plt.xlable("Country",fontsize=14)
+plt.ylable("Average IQ", fontsize=14)
+
+#Rotate the x-axis lables for better readbility
+
+plt.xticks(rotation=90, fontsize=10)
+plt.yticks(fontsize=10)
+
+#Add grdlines to the y-axis for better readability
+plt.grid(axis='y',linestyle='--',alpha=0.8)
+
+#Add text labels on the bars
+plt.bar_label(bars,fmt='%.2f', fontsize=10, color='black')
+
+#Adjust the layout to ensure everything fits without overlapping
+plt.tight_layout()
+
+plt.show()
